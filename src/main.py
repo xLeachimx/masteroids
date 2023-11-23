@@ -9,7 +9,7 @@
 
 import pygame as pg
 from time import perf_counter
-from game_classes import Player, Vector2D
+from game_classes import Player, Vector2D, Asteroid
 
 def main():
     # Setup pygame
@@ -22,6 +22,7 @@ def main():
     
     # Setup GameObjects
     player = Player(Vector2D(250, 250))
+    asteroid = Asteroid(Asteroid.SMALL, Vector2D(300, 300))
     
     # Main game loop
     while running:
@@ -31,7 +32,9 @@ def main():
             # Process Frame
             screen.fill((0, 0, 0))
             player.update(delta)
+            asteroid.update(delta)
             player.draw(screen)
+            asteroid.draw(screen)
             pg.display.flip()
             # Process Events
             for event in pg.event.get():
@@ -54,6 +57,8 @@ def main():
             # Process OoB behavior
             if not player.in_bounds(screen_dim):
                 player.clamp(screen_dim)
+            if not asteroid.in_bounds(screen_dim):
+                asteroid.bounce(screen_dim)
 
 
 if __name__ == '__main__':

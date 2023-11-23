@@ -11,4 +11,5 @@ from .player import Player
 
 class Level:
     def __init__(self, small: int, medium: int, large: int):
+        pass
     

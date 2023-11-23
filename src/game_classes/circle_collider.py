@@ -41,6 +41,15 @@ class CircleCollider:
         return self.anchor
     
     # Precond:
+    #   None.
+    #
+    # Postcond:
+    #   Returns the radius for this collider.
+    def get_radius(self) -> float:
+        """Returns the radius of this collider"""
+        return self.radius
+    
+    # Precond:
     #   by is a valid Vector2D object.
     #
     # Postcond:
