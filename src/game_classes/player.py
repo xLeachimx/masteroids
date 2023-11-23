@@ -17,7 +17,7 @@ import pygame as pg
 class Player(MovingGameObject):
     """A simple class for dealing with the player's ship."""
     # Player constants
-    SHIP_RADIUS = 20
+    SHIP_RADIUS = 10
     SHIP_ACCELERATION = 15
     SHIP_ANGULAR_SPEED = radians(180)
     

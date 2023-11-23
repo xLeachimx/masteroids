@@ -6,7 +6,6 @@
 
 ### Pending:
 - The Player will initially spawn in the center of the screen with the point of the ship facing at 0 degrees on the unit circle.
-- Asteroids will exist in 3 possible size: large, medium, small
 - The Player will be able to fire a pellet which will travel from the front of their ship
 - The Player will complete a level when no asteroids are left
 - The Player will continue to be presented levels until the Player loses
@@ -18,8 +17,6 @@
   - Large asteroids have 12 sections with radius from 1/8 to 1/10 of the screen 
   - Medium asteroids have 8 sections with radius from 1/10 to 1/12 of the screen
   - Small asteroids have 6 sections with radius from 1/12 to 1/14 of the screen
-- Asteroids will have a constant velocity, randomly determined at spawn
-- Asteroids will bounce off of the edges of the screen
 - Player pellets will despawn when they hit the edge of the screen
 - Player pellets will despawn when they hit an asteroid
 - When a pellet collides with an asteroid that asteroid will split such that:
@@ -41,6 +38,9 @@
 - The Player will be able to stop their ship
 - Changes in player velocity will align to a linear acceleration curve
 - The Player will be halted when they hit the edge of the screen
+- Asteroids will exist in 3 possible size: large, medium, small
+- Asteroids will have a constant velocity, randomly determined at spawn
+- Asteroids will bounce off of the edges of the screen
 
 ## Secondary Mechanics
 
