@@ -1,0 +1,95 @@
+@startuml
+
+class GameObject {
+    - active: boolean
+    - visible: boolean
+    - collider: CircleCollider
+    + GameObject(anchor: Vector2D, radius: float)
+    + void update(delta: float)
+    + void draw(screen: Surface)
+    + void set_anchor(new_anchor: Vector2D)
+    + void move_anchor(by: Vector2D)
+    + Vector2D get_anchor()
+    + boolean is_active()
+    + void set_active(value: boolean)
+    + boolean is_visible()
+    + void set_visible(value: boolean)
+    + boolean has_collided(other: GameObject)
+}
+
+class MovingGameObject {
+    - velocity: Vector2D
+    + MovingGameObject(anchor: Vector2D, radius: float, velocity: Vector2D)
+    + void update(delta: float)
+}
+
+class Player {
+    - score: int
+    + Player(anchor: Vector2D)
+    + void throttle_up(delta: float)
+    + void throttle_down(delta: float)
+    + void halt_ship()
+    + void rotate_cw(delta: float)
+    + void rotate_ccw(delta: float)
+    + int getScore()
+    + int addScore(incr: int)
+}
+
+class Asteroid {
+    - section_radii: List of float
+    + Asteroid(size: int, anchor: Vector2D, velocity: Vector2D)
+    + Asteroid[2] split()
+}
+
+class Pellet{
+    + Pellet(anchor: Vector2D, facing: float)
+}
+
+Player <|-- MovingGameObject
+Asteroid <|-- MovingGameObject
+Pellet <|-- MovingGameObject
+
+MovingGameObject <|--GameObject
+
+MovingGameObject *-- Vector2D
+GameObject *-- CircleCollider
+
+CircleCollider *-- Vector2D
+
+class Vector2D {
+    - x: float
+    - y: float
+    + Vector2D(x: float, y: float)
+    + Vector2D add(other: Vector2D)
+    + Vector2D sub(other: Vector2D)
+    + Vector2D scale(factor: float)
+    + float dot(other: Vector2D)
+    + float magnitude()
+    + Vector2D inverse()
+    + Vector2D unit()
+}
+
+class CircleCollider {
+    - anchor: Vector2D
+    - radius: float
+    + boolean has_collided(other: CircleCollider)
+    + Vector2D getAnchor()
+    + void move(by: Vector2D)
+    + void move_to(to: Vector2D)
+}
+
+class Level {
+    - player: Player
+    - asteroids: Asteroid[]
+    - pellets: Pellet[]
+    + Level(small: int, medium: int, large: int)
+    + void run_frame(delta: float)
+    + boolean win()
+    + boolean lose()
+}
+
+Level *-- Asteroid : > has many
+Level *-- Pellet : > has many
+Level *-- Player : > has one
+
+@enduml
