@@ -11,7 +11,6 @@
 - The Player will have their lives replenished each level
 - The Player will lose a life and be reset to the start position if an asteroid collides with them
 - The Player will lose the game when they have no lives remaining
-- Player pellets will despawn when they hit the edge of the screen
 - Player pellets will despawn when they hit an asteroid
 - When a pellet collides with an asteroid that asteroid will split such that:
   - A large asteroid becomes 4 medium asteroids
@@ -41,6 +40,7 @@
   - Small asteroids have 6 sections
 - The Player will initially spawn in the center of the screen with the point of the ship facing at 0 degrees on the unit circle.
 - The Player will be able to fire a pellet which will travel from the front of their ship
+- Player pellets will despawn when they hit the edge of the screen
 
 ## Secondary Mechanics
 

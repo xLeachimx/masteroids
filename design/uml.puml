@@ -82,7 +82,7 @@ class Level {
     - player: Player
     - asteroids: Asteroid[]
     - pellets: Pellet[]
-    + Level(small: int, medium: int, large: int)
+    + Level(player: Player, small: int, medium: int, large: int)
     + void run_frame(delta: float)
     + boolean win()
     + boolean lose()

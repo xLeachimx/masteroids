@@ -61,8 +61,17 @@ class GameObject:
     # Postcond:
     #   Moves the object's anchor to by the provided vector.
     def move_anchor(self, by: Vector2D):
-        """Set the GameObject's anchor to a new position."""
+        """Moves the GameObject's anchor by a given vector."""
         self.collider.move(by)
+        
+    # Precond:
+    #   to is a valid Vector2D object.
+    #
+    # Postcond:
+    #   Moves the object's anchor to the provided vector.
+    def move_anchor_to(self, to: Vector2D):
+        """Set the GameObject's anchor to a new position."""
+        self.collider.move_to(to)
     
     # Precond:
     #   None.
@@ -108,6 +117,16 @@ class GameObject:
     def set_visible(self, value: bool):
         """Set the GameObject's visible state."""
         self.visible = value
+    
+    # Precond:
+    #   None.
+    #
+    # Postcond:
+    #   Makes the object visible and active.
+    def activate(self):
+        """Makes the GameObject visible and active."""
+        self.active = True
+        self.visible = True
     
     # Precond:
     #   other is a valid GameObject.

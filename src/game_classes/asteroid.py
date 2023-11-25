@@ -32,18 +32,19 @@ class Asteroid(MovingGameObject):
     # Postcond:
     #   Creates a new asteroid object of the specified size.
     def __init__(self, size: int, anchor: Vector2D):
-        """Asteroid Contructor."""
+        """Asteroid Constructor."""
         velocity = Vector2D.ang_to_vec(radians(randint(0, 359)))
         velocity = velocity.scale(Asteroid.ASTEROID_SPEED[size])
-        super(Asteroid, self).__init__(anchor, Asteroid.ASTEROID_MAX_RADIUS[size], velocity)
+        super(Asteroid, self).__init__(anchor, Asteroid.ASTEROID_MIN_RADIUS[size], velocity)
         self.size = size
+        self.max_radius = Asteroid.ASTEROID_MAX_RADIUS[size]
         num_sections = Asteroid.ASTEROID_SECTIONS[self.size]
         sections = []
         sect_angle = radians(360//num_sections)
         for _ in range(num_sections):
             radius = randint(Asteroid.ASTEROID_MIN_RADIUS[self.size], Asteroid.ASTEROID_MAX_RADIUS[self.size])
             sections.append(radius)
-        sqr_size = 2 * self.collider.get_radius()
+        sqr_size = 2 * self.max_radius
         self.sprite = pg.Surface((sqr_size, sqr_size), flags=pg.SRCALPHA)
         self.sprite.fill((0, 0, 0, 0))
         sprite_center = Vector2D(*self.sprite.get_rect().center)
@@ -54,6 +55,15 @@ class Asteroid(MovingGameObject):
             p2 = ang_vec.scale(sections[i-1]).add(sprite_center).to_int_tuple()
             pg.draw.line(self.sprite, (255, 0, 0), p1, p2, 2)
         
+    # Precond:
+    #   None.
+    #
+    # Postcond:
+    #   Returns a list of the asteroids created when this asteroid is destroyed.
+    def split(self) -> list:
+        """Splits the asteroid into smaller asteroids."""
+        return []
+    
     # Precond:
     #   screen is the Pygame Surface object where the object will be drawn.
     #

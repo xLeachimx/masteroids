@@ -29,7 +29,7 @@ class CircleCollider:
     #   Returns true if this collider and the other collider intersect.
     def has_collided(self, other: 'CircleCollider'):
         """Checks if this collider collides with another collider"""
-        return self.anchor.sub(other.get_anchor()).magnitude() < self.radius
+        return self.anchor.sub(other.get_anchor()).magnitude() < (self.radius + other.radius)
 
     # Precond:
     #   None.

@@ -63,8 +63,7 @@ class Player(MovingGameObject):
         """Spawn and return new pellet object in front of the player's ship."""
         pellet_anchor = Vector2D.ang_to_vec(self.facing).scale(Player.SHIP_RADIUS)
         pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
-        pellet.set_active(True)
-        pellet.set_visible(True)
+        pellet.activate()
         return pellet
     
     # =======================
