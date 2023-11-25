@@ -133,6 +133,8 @@ class MovingGameObject(GameObject):
     #  Override of the update method of moving objects.
     def update(self, delta: float):
         """Update method for a moving game object"""
+        if not self.active:
+            return
         self.collider.move(self.velocity.scale(delta))
 
     # Precond:

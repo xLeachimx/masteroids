@@ -11,3 +11,4 @@ from .game_object import GameObject, MovingGameObject
 from .player import Player
 from .vector2d import Vector2D
 from .asteroid import Asteroid
+from .pellet import Pellet

@@ -9,6 +9,7 @@
 
 from .game_object import MovingGameObject
 from .vector2d import Vector2D
+from .pellet import Pellet
 from math import radians
 
 import pygame as pg
@@ -58,6 +59,14 @@ class Player(MovingGameObject):
         self.score += incr
         return self.score
     
+    def fire(self):
+        """Spawn and return new pellet object in front of the player's ship."""
+        pellet_anchor = Vector2D.ang_to_vec(self.facing).scale(Player.SHIP_RADIUS)
+        pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
+        pellet.set_active(True)
+        pellet.set_visible(True)
+        return pellet
+    
     # =======================
     #   Overridden methods
     # =======================
@@ -69,6 +78,8 @@ class Player(MovingGameObject):
     #   Override of the draw method for drawing the player's ship.
     def draw(self, screen: pg.Surface):
         """Override of the draw method for the Player's ship."""
+        if not self.visible:
+            return
         anchor = self.get_anchor()
         anchor = anchor.sub(Vector2D(Player.SHIP_RADIUS, Player.SHIP_RADIUS))
         sprite = pg.Surface((2*Player.SHIP_RADIUS + 1, 2*Player.SHIP_RADIUS + 1), flags=pg.SRCALPHA)

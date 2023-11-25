@@ -9,8 +9,9 @@
 
 import pygame as pg
 from time import perf_counter
-from game_classes import Player, Vector2D, Asteroid
+from game_classes import Player, Vector2D, Asteroid, Pellet
 from random import seed
+from math import radians
 
 def main():
     # Setup pygame
@@ -23,7 +24,13 @@ def main():
     
     # Setup GameObjects
     player = Player(Vector2D(250, 250))
-    asteroid = Asteroid(Asteroid.SMALL, Vector2D(300, 300))
+    asteroid = Asteroid(Asteroid.LARGE, Vector2D(300, 300))
+    pellets = []
+    
+    player.set_active(True)
+    asteroid.set_active(True)
+    player.set_visible(True)
+    asteroid.set_visible(True)
     
     # Main game loop
     while running:
@@ -34,8 +41,12 @@ def main():
             screen.fill((0, 0, 0))
             player.update(delta)
             asteroid.update(delta)
+            for pellet in pellets:
+                pellet.update(delta)
             player.draw(screen)
             asteroid.draw(screen)
+            for pellet in pellets:
+                pellet.draw(screen)
             pg.display.flip()
             # Process Events
             for event in pg.event.get():
@@ -55,11 +66,20 @@ def main():
                 player.throttle_up(delta)
             elif pg.key.get_pressed()[pg.K_s]:
                 player.throttle_down(delta)
+            # Trigger input
+            if pg.key.get_pressed()[pg.K_SPACE]:
+                pellets.append(player.fire())
             # Process OoB behavior
             if not player.in_bounds(screen_dim):
                 player.clamp(screen_dim)
             if not asteroid.in_bounds(screen_dim):
                 asteroid.bounce(screen_dim)
+            pellet_gc = []
+            for i in range(len(pellets)):
+                if not pellets[i].in_bounds(screen_dim):
+                    pellet_gc.append(i)
+            for i in pellet_gc[::-1]:
+                pellets.pop(i)
 
 
 if __name__ == '__main__':

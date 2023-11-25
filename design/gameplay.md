@@ -5,7 +5,6 @@
 ---
 
 ### Pending:
-- The Player will be able to fire a pellet which will travel from the front of their ship
 - The Player will complete a level when no asteroids are left
 - The Player will continue to be presented levels until the Player loses
 - The Player will have 3 lives
@@ -41,10 +40,11 @@
   - Medium asteroids have 8 sections
   - Small asteroids have 6 sections
 - The Player will initially spawn in the center of the screen with the point of the ship facing at 0 degrees on the unit circle.
+- The Player will be able to fire a pellet which will travel from the front of their ship
 
 ## Secondary Mechanics
 
-Note: All secondary mechanics replace the primary mechanics they improve, when completed.
+Note: All secondary mechanics replace/modify the primary mechanics they improve, when completed.
 
 ---
 
@@ -54,6 +54,8 @@ Note: All secondary mechanics replace the primary mechanics they improve, when c
 - Asteroids will experience screen wrap when hitting the edge of the screen
 - Asteroids will bounce off one another if they collide
 - Asteroids slowly rotate as they move through space
-- The Player and Asteroids are sized relative to the smallest screen dimension
+- The Player and Asteroids will be sized relative to the smallest screen dimension
+- Pellet lifespan will be 3 seconds
+- The Player will be limited to firing pellets at a rate of 2 per second
 
 ### Completed:
