@@ -10,6 +10,7 @@
 import pygame as pg
 from time import perf_counter
 from game_classes import Player, Vector2D, Asteroid
+from random import seed
 
 def main():
     # Setup pygame
