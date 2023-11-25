@@ -114,7 +114,9 @@ class Level:
                 self.player.throttle_down(delta)
             # Trigger input
             if pg.key.get_pressed()[pg.K_SPACE]:
-                self.pellets.append(self.player.fire())
+                pellet = self.player.fire()
+                if pellet is not None:
+                    self.pellets.append(pellet)
         
         # Draw
         self.player.draw(screen)

@@ -61,13 +61,14 @@ Note: All secondary mechanics replace/modify the primary mechanics they improve,
 
 ### Pending:
 
-- The Player will experience screen wrap when hitting the edge of the screen, both vertical and horizontal
+- The Player will experience screen wrap when hitting the edge of the screen
 - Asteroids will experience screen wrap when hitting the edge of the screen
+- Pellets will experience screen wrap when hitting the edge of the screen
 - Asteroids will bounce off one another if they collide
 - Asteroids slowly rotate as they move through space
 - The Player and Asteroids will be sized relative to the smallest screen dimension
 - Pellet lifespan will be 3 seconds
-- The Player will be limited to firing pellets at a rate of 2 per second
-- The Game will start with a splash screen for Pygame and SACGD
 
 ### Completed:
+- The Player will be limited to firing pellets at a rate of 2 per second
+- The Game will start with a splash screen for Pygame and SAC-GS

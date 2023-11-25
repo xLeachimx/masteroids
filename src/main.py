@@ -7,9 +7,12 @@
 #   Primary entry point and overarching game loop file.
 # Notes:
 
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
 import pygame as pg
 from time import perf_counter
-from game_classes import Player, Vector2D, Asteroid, Pellet, Level
+from game_classes import Player, Vector2D, Level
 from random import seed
 from math import radians
 
@@ -66,6 +69,7 @@ def main():
     level_dir_anchor = (screen_dim[0] - level_dir.get_width()) // 2, (
               screen_dim[1] - level_dir.get_height()) // 2 + level_label.get_height()
     
+    splash_screen(8)
     # Main game loop
     while running:
         delta = perf_counter() - frame_timer
@@ -106,6 +110,51 @@ def main():
             elif level.lose():
                 running = False
                 game_state = "LOST"
+
+
+
+def splash_screen(length: float):
+    sacgs_length = length/2
+    screen = pg.display.get_surface()
+    running = True
+    announcement_font = pg.font.SysFont("consolas", 48, bold=True)
+    subtitle_font = pg.font.SysFont("consolas", 18, bold=True)
+    
+    # SAGS labels
+    from_label = subtitle_font.render("A game from:", True, (255, 255, 255))
+    sacgs_label = announcement_font.render("SAC Game Studios", True, (255, 255, 255))
+    sacgs_anchor = (screen.get_width()-sacgs_label.get_width())//2, (screen.get_height()-sacgs_label.get_height())//2
+    from_anchor = sacgs_anchor[0], sacgs_anchor[1] - from_label.get_height()
+    
+    # Pygame labels
+    with_label = subtitle_font.render("Made with:", True, (255, 255, 255))
+    pygame_label = announcement_font.render("Pygame", True, (255, 255, 255))
+    pygame_anchor = (screen.get_width()-pygame_label.get_width())//2, (screen.get_height()-pygame_label.get_height())//2
+    with_anchor = pygame_anchor[0], pygame_anchor[1] - with_label.get_height()
+    
+    frame_delta = 1 / 24
+    frame_timer = perf_counter()
+    while running:
+        delta = perf_counter() - frame_timer
+        if delta >= frame_delta:
+            length -= delta
+            frame_timer = perf_counter()
+            # Process Frame
+            screen.fill((0, 0, 0))
+            if length < sacgs_length:
+                screen.blit(from_label, from_anchor)
+                screen.blit(sacgs_label, sacgs_anchor)
+            else:
+                screen.blit(with_label, with_anchor)
+                screen.blit(pygame_label, pygame_anchor)
+            pg.display.flip()
+            # Process Events
+            for event in pg.event.get():
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_ESCAPE:
+                        running = False
+            if length <= 0:
+                running = False
 
 
 if __name__ == '__main__':

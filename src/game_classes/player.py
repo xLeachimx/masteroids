@@ -27,6 +27,7 @@ class Player(MovingGameObject):
         super(Player, self).__init__(anchor, Player.SHIP_RADIUS, Vector2D(0, 0))
         self.facing = 0
         self.score = 0
+        self.cooldown = 0
     
     def throttle_up(self, delta: float):
         """Apply acceleration in the direction of facing."""
@@ -65,14 +66,29 @@ class Player(MovingGameObject):
     
     def fire(self):
         """Spawn and return new pellet object in front of the player's ship."""
+        if self.cooldown > 0:
+            return None
         pellet_anchor = Vector2D.ang_to_vec(self.facing).scale(Player.SHIP_RADIUS)
         pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
         pellet.activate()
+        self.cooldown = 0.5
         return pellet
     
     # =======================
     #   Overridden methods
     # =======================
+    
+    # Precond:
+    #   delta is a floating point number indicating the time elapsed (in seconds) since the last update.
+    #
+    # Postcond:
+    #  Override of the update method of moving objects.
+    def update(self, delta: float):
+        """Update method for a moving game object"""
+        if not self.active:
+            return
+        self.cooldown -= delta
+        super(Player, self).update(delta)
     
     # Precond:
     #   screen is the Pygame Surface object where the object will be drawn.
