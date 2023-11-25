@@ -41,6 +41,10 @@ class Player(MovingGameObject):
     def halt_ship(self):
         """Set the ship's velocity to zero."""
         self.velocity = Vector2D(0, 0)
+        
+    def reset_facing(self):
+        """Resets the ship's facing to zero."""
+        self.facing = 0
     
     def rotate_cw(self, delta: float):
         """Rotate the ship clockwise."""

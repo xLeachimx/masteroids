@@ -107,7 +107,7 @@ class GameObject:
     #   Returns the true if the object is visible.
     def is_visible(self) -> bool:
         """Retrieve the GameObject's visible state."""
-        return self.active
+        return self.visible
     
     # Precond:
     #   value is a valid boolean value.

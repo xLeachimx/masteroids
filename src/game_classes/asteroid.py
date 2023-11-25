@@ -24,6 +24,7 @@ class Asteroid(MovingGameObject):
     ASTEROID_MAX_RADIUS = [10, 20, 30]
     ASTEROID_SECTIONS = [6, 8, 12]
     ASTEROID_SPEED = [70, 50, 25]
+    ASTEROID_VALUE = [10, 100, 1000]
     
     # Precond:
     #   size is a number in the set {0, 1, 2} representing the size-class of the asteroid.
@@ -63,6 +64,14 @@ class Asteroid(MovingGameObject):
     def split(self) -> list:
         """Splits the asteroid into smaller asteroids."""
         return []
+    
+    # Precond:
+    #   None.
+    #
+    # Postcond:
+    #   Returns the point value of the asteroid.
+    def get_point_value(self):
+        return Asteroid.ASTEROID_VALUE[self.size]
     
     # Precond:
     #   screen is the Pygame Surface object where the object will be drawn.
