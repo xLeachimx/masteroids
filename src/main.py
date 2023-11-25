@@ -15,16 +15,25 @@ from math import radians
 
 
 def create_level(player: Player, screen_dim: (int, int), difficulty: int):
-    small = difficulty//2
-    medium = difficulty//5
-    large = difficulty//7
+    small = difficulty // 2
+    medium = difficulty // 5
+    large = difficulty // 7
     return Level(player, screen_dim, small, medium, large)
 
 
 def create_level_label(level: int, font: pg.font.Font, screen_dim: (int, int)):
     level_label = font.render(f"LEVEL {level}", False, (255, 255, 255))
-    level_anchor = (screen_dim[0]-level_label.get_width())//2, (screen_dim[1]-level_label.get_height())//2
+    level_anchor = (screen_dim[0] - level_label.get_width()) // 2, (screen_dim[1] - level_label.get_height()) // 2
     return level_label, level_anchor
+
+
+def create_icon():
+    ico = pg.Surface((32, 32))
+    ico.fill((0, 0, 0))
+    pts = [(3, 28), (14, 3), (16, 3), (28, 28)]
+    pg.draw.polygon(ico, (255, 255, 255), pts)
+    return ico
+
 
 def main():
     seed(42)
@@ -32,10 +41,12 @@ def main():
     pg.init()
     screen_dim = (500, 500)
     screen = pg.display.set_mode(screen_dim)
-    frame_delta = 1/24
+    pg.display.set_caption("Masteroids", "Masteroids")
+    pg.display.set_icon(create_icon())
+    frame_delta = 1 / 24
     frame_timer = perf_counter()
     announcement_font = pg.font.SysFont("consolas", 48, bold=True)
-    subtitle_font = pg.font.SysFont("consolas", 20, bold=True)
+    subtitle_font = pg.font.SysFont("consolas", 12, bold=True)
     running = True
     
     # Setup GameObjects
@@ -49,10 +60,11 @@ def main():
     # Basic Game state handling and text
     game_state = "NEW_LEVEL"
     pause_label = announcement_font.render("==PAUSED==", False, (255, 255, 255))
-    pause_anchor = (screen_dim[0]-pause_label.get_width())//2, (screen_dim[1]-pause_label.get_height())//2
+    pause_anchor = (screen_dim[0] - pause_label.get_width()) // 2, (screen_dim[1] - pause_label.get_height()) // 2
     level_label, level_anchor = create_level_label(level_count, announcement_font, screen_dim)
     level_dir = subtitle_font.render("Press SPACE to proceed", False, (255, 255, 255))
-    level_dir_anchor = (screen_dim[0]-level_dir.get_width())//2, (screen_dim[1]-level_dir.get_height())//2 + level_label.get_height()
+    level_dir_anchor = (screen_dim[0] - level_dir.get_width()) // 2, (
+              screen_dim[1] - level_dir.get_height()) // 2 + level_label.get_height()
     
     # Main game loop
     while running:
@@ -94,6 +106,7 @@ def main():
             elif level.lose():
                 running = False
                 game_state = "LOST"
+
 
 if __name__ == '__main__':
     main()

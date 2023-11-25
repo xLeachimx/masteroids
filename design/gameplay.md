@@ -6,6 +6,12 @@
 
 ### Pending:
 
+- The Game will start at a main menu screen
+- The Main Menu will contain the following options:
+  - Start, which starts a run
+  - Instructions which details how to play
+  - Leaderboard which displays the leaderboard
+  - Quit which stops the game running
 - When a pellet collides with an asteroid that asteroid will split such that:
   - A large asteroid becomes 4 medium asteroids
   - A medium asteroid becomes 2 small asteroids
@@ -62,5 +68,6 @@ Note: All secondary mechanics replace/modify the primary mechanics they improve,
 - The Player and Asteroids will be sized relative to the smallest screen dimension
 - Pellet lifespan will be 3 seconds
 - The Player will be limited to firing pellets at a rate of 2 per second
+- The Game will start with a splash screen for Pygame and SACGD
 
 ### Completed:
