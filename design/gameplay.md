@@ -6,9 +6,6 @@
 
 ### Pending:
 
-- The Main Menu will contain the following options:
-  - Leaderboard which displays the leaderboard
-- A leaderboard of the top 10 player runs will be kept
 - The player may add their name to the leaderboard if they would rank in the top 10
 
 ### Completed:
@@ -48,11 +45,13 @@
 - The Main Menu will contain the following options:
   - Start, which starts a run
   - Instructions which details how to play
+  - Leaderboard which displays the leaderboard
   - Quit which stops the game running
 - When a pellet collides with an asteroid that asteroid will split such that:
   - A small asteroid becomes nothing
   - A large asteroid becomes 4 medium asteroids
   - A medium asteroid becomes 2 small asteroids
+- A leaderboard of the top 10 player runs will be kept
 
 ## Secondary Mechanics
 
@@ -69,6 +68,7 @@ Note: All secondary mechanics replace/modify the primary mechanics they improve,
 - Asteroids slowly rotate as they move through space
 - The Player and Asteroids will be sized relative to the smallest screen dimension
 - The Pellet will have a lifespan of 3 seconds
+- The Game will play a sound when a pellet is fired
 
 ### Completed:
 - The Player will be limited to firing pellets at a rate of 2 per second

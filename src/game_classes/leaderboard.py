@@ -20,7 +20,7 @@ class Leader:
     
     def encrypt(self, key: int):
         """Returns an encrypted csv version of the leader"""
-        base = ",".join([self.name, self.score])
+        base = ",".join([self.name, str(self.score)])
         result = ""
         for ltr in base:
             result += chr(ord(ltr) ^ key)
@@ -28,7 +28,7 @@ class Leader:
 
 
 class Leaderboard:
-    SECRET_KEY = 1123581321
+    SECRET_KEY = 42
     
     def __init__(self, filename: str):
         """Leaderboard constructor"""
@@ -41,7 +41,7 @@ class Leaderboard:
                 for line in fin:
                     line = line.strip()
                     if line != "":
-                        self.leaders.append(self.__decrypt_line(line))
+                        self.leaders.append(Leaderboard.__decrypt_line(line))
             self.updated = False
         else:
             self.leaders = [Leader("AAA", 0) for i in range(10)]
@@ -94,7 +94,7 @@ class Leaderboard:
         return result
     
     @staticmethod
-    def __decrypt_line(self, line: str) -> Leader:
+    def __decrypt_line(line: str) -> Leader:
         """Decrypt a single line of an encrypted file."""
         result = ""
         for ltr in line:
