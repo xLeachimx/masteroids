@@ -71,7 +71,7 @@ class Player(MovingGameObject):
         pellet_anchor = Vector2D.ang_to_vec(self.facing).scale(Player.SHIP_RADIUS)
         pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
         pellet.activate()
-        self.cooldown = 0.5
+        self.cooldown = 0.2
         return pellet
     
     # =======================

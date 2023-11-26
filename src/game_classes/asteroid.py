@@ -63,7 +63,24 @@ class Asteroid(MovingGameObject):
     #   Returns a list of the asteroids created when this asteroid is destroyed.
     def split(self) -> list:
         """Splits the asteroid into smaller asteroids."""
-        return []
+        result = []
+        if self.size == Asteroid.LARGE:
+            a1_anchor = Vector2D.ang_to_vec(radians(45)).scale(self.max_radius//2).add(self.get_anchor())
+            a2_anchor = Vector2D.ang_to_vec(radians(135)).scale(self.max_radius//2).add(self.get_anchor())
+            a3_anchor = Vector2D.ang_to_vec(radians(225)).scale(self.max_radius//2).add(self.get_anchor())
+            a4_anchor = Vector2D.ang_to_vec(radians(315)).scale(self.max_radius//2).add(self.get_anchor())
+            result.append(Asteroid(Asteroid.MEDIUM, a1_anchor))
+            result.append(Asteroid(Asteroid.MEDIUM, a2_anchor))
+            result.append(Asteroid(Asteroid.MEDIUM, a3_anchor))
+            result.append(Asteroid(Asteroid.MEDIUM, a4_anchor))
+        elif self.size == Asteroid.MEDIUM:
+            a1_anchor = Vector2D.ang_to_vec(radians(135)).scale(self.max_radius//2).add(self.get_anchor())
+            a2_anchor = Vector2D.ang_to_vec(radians(315)).scale(self.max_radius//2).add(self.get_anchor())
+            result.append(Asteroid(Asteroid.SMALL, a1_anchor))
+            result.append(Asteroid(Asteroid.SMALL, a2_anchor))
+        for asteroid in result:
+            asteroid.activate()
+        return result
     
     # Precond:
     #   None.
