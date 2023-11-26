@@ -66,6 +66,8 @@ def menu():
                         selection = 2
                     elif quit_btn.check_click(event.pos):
                         selection = -1
+                    else:
+                        running = True
     return selection
                 
     
