@@ -13,3 +13,5 @@ from .vector2d import Vector2D
 from .asteroid import Asteroid
 from .pellet import Pellet
 from .level import Level
+from .button import Button
+from .text_box import TextBox

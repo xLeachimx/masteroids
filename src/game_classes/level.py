@@ -126,8 +126,8 @@ class Level:
             pellet.draw(screen)
         
         # Draw HUD
-        score_text = self.font.render(f"{self.player.get_score():06}", False, (255, 255, 255))
-        lives_text = self.font.render(f"Lives: {self.lives}", False, (255, 255, 255))
+        score_text = self.font.render(f"{self.player.get_score():09}", True, (255, 255, 255))
+        lives_text = self.font.render(f"Lives: {self.lives}", True, (255, 255, 255))
         screen.blit(score_text, (self.dim[0] - score_text.get_width(), 0))
         screen.blit(lives_text, (0, 0))
 
