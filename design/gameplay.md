@@ -6,8 +6,6 @@
 
 ### Pending:
 
-- The player may add their name to the leaderboard if they would rank in the top 10
-
 ### Completed:
 - The Player will start with a total of 0 points
 - The Player will be represented by an isosceles triangle
@@ -52,6 +50,7 @@
   - A large asteroid becomes 4 medium asteroids
   - A medium asteroid becomes 2 small asteroids
 - A leaderboard of the top 10 player runs will be kept
+- The player may add their name to the leaderboard if they would rank in the top 10
 
 ## Secondary Mechanics
 
