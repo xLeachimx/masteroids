@@ -14,23 +14,25 @@ from .vector2d import Vector2D
 class Button:
     """A simply Pygame-based button class."""
 
-    def __init__(self, label: str, min_dim: Vector2D, text_color: (int, int, int)):
+    def __init__(self, label: str, min_dim: (int, int), text_color: (int, int, int)):
         """Button constructor"""
+        if min_dim is None:
+            min_dim = 0, 0
         self.font = pg.font.SysFont("consolas", 24)
         self.padding = 10
         self.anchor = None
         self.label = label
         label_surf = self.font.render(self.label, True, text_color)
-        self.dim = max(label_surf.get_width(), int(min_dim.x)) + self.padding, max(label_surf.get_height(), int(min_dim.y)) + self.padding
+        self.dim = max(label_surf.get_width(), int(min_dim[0])) + self.padding, max(label_surf.get_height(), int(min_dim[1])) + self.padding
         self.surf = pg.Surface(self.dim, flags=pg.SRCALPHA)
         label_anchor = (self.dim[0] - label_surf.get_width())//2, (self.dim[1] - label_surf.get_height())//2
         self.surf.blit(label_surf, label_anchor)
         pg.draw.rect(self.surf, (255, 255, 255), self.surf.get_rect(), 1)
         
-    def place(self, screen: pg.Surface, anchor: Vector2D):
+    def place(self, screen: pg.Surface, anchor: (int, int)):
         """Places the button at the given anchor."""
         self.anchor = anchor
-        screen.blit(self.surf, self.anchor.to_int_tuple())
+        screen.blit(self.surf, self.anchor)
     
     def place_center(self, screen: pg.Surface):
         """Places the button in the center of the screen."""

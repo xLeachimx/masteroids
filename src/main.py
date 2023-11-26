@@ -15,6 +15,7 @@ from random import seed
 from splash import splash_screen
 from game import game
 from menu import menu
+from instr import instr
 
 
 def create_icon():
@@ -40,6 +41,10 @@ def main():
         if menu_selection == 0:
             score = game()
             if score == -1:
+                break
+        elif menu_selection == 1:
+            res = instr()
+            if res == -1:
                 break
         menu_selection = menu()
     

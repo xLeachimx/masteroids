@@ -9,6 +9,7 @@
 #   Returns a value ot indicate which option has been selected:
 #      -1: No selection/Quit
 #       0: Start
+#       1: Instructions
 
 import pygame as pg
 from time import perf_counter
@@ -25,11 +26,13 @@ def menu():
     masteroid_anchor = (screen_dim[0] - masteroid_label.get_width())//2, screen_dim[1]//4 - masteroid_label.get_height()//2
     
     # Create buttons
-    start_btn = Button("START", Vector2D(0, 0), (255, 255, 255))
-    quit_btn = Button("QUIT", Vector2D(0, 0), (255, 255, 255))
+    start_btn = Button("START", None, (255, 255, 255))
+    instr_btn = Button("INSTRUCTIONS", None, (255, 255, 255))
+    quit_btn = Button("QUIT", None, (255, 255, 255))
     vert_padding = 10
     start_vert = masteroid_anchor[0] + masteroid_label.get_height() + vert_padding
-    quit_vert = start_vert + start_btn.get_dim()[1] + vert_padding
+    instr_vert = start_vert + start_btn.get_dim()[1] + vert_padding
+    quit_vert = instr_vert + instr_btn.get_dim()[1] + vert_padding
 
     # Update accounting
     frame_delta = 1 / 24
@@ -43,6 +46,7 @@ def menu():
             screen.fill((0, 0, 0))
             screen.blit(masteroid_label, masteroid_anchor)
             start_btn.place_horizontal_center(screen, start_vert)
+            instr_btn.place_horizontal_center(screen, instr_vert)
             quit_btn.place_horizontal_center(screen, quit_vert)
             pg.display.flip()
             # Process Events
@@ -50,12 +54,13 @@ def menu():
                 if event.type == pg.QUIT:
                     running = False
                 if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                    running = False
                     if start_btn.check_click(event.pos):
                         selection = 0
-                        running = False
+                    elif instr_btn.check_click(event.pos):
+                        selection = 1
                     elif quit_btn.check_click(event.pos):
                         selection = -1
-                        running = False
     return selection
                 
     

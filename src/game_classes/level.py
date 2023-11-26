@@ -82,6 +82,9 @@ class Level:
                         self.lives -= 1
                         self.player.move_anchor_to(Vector2D(self.dim[0]//2, self.dim[1]//2))
                         self.player.halt_ship()
+                        self.i_frames = 1
+                        self.i_blink_count = 0
+                        break
                     
             # Garbage collection
             for i in range(len(self.pellets)):

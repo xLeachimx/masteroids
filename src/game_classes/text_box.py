@@ -17,6 +17,7 @@ class TextBox:
         wrapped_text = []
         temp = ""
         for line in provided_lines:
+            temp = ""
             words = line.split(" ")
             for word in words:
                 if (len(word) + len(temp) + 1) < line_length:
@@ -24,6 +25,8 @@ class TextBox:
                 else:
                     wrapped_text.append(temp)
                     temp = word
+            if len(temp) != 0:
+                wrapped_text.append(temp)
         rendered_text = []
         for line in wrapped_text:
             rendered_text.append(font.render(line, True, color))
@@ -35,8 +38,12 @@ class TextBox:
             self.surf.blit(line, (0, vert))
             vert += line.get_height()
     
-    def place(self):
-        pass
+    def place(self, screen: pg.Surface, anchor: (int, int)):
+        screen.blit(self.surf, anchor)
+        
+    def place_center(self, screen: pg.Surface):
+        anchor = (screen.get_width() - self.surf.get_width())//2, (screen.get_height() - self.surf.get_height())//2
+        screen.blit(self.surf, anchor)
     
     def get_dim(self) -> (int, int):
         return self.surf.get_size()

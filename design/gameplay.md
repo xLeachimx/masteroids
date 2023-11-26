@@ -6,12 +6,8 @@
 
 ### Pending:
 
-- The Game will start at a main menu screen
 - The Main Menu will contain the following options:
-  - Start, which starts a run
-  - Instructions which details how to play
   - Leaderboard which displays the leaderboard
-  - Quit which stops the game running
 - When a pellet collides with an asteroid that asteroid will split such that:
   - A large asteroid becomes 4 medium asteroids
   - A medium asteroid becomes 2 small asteroids
@@ -52,6 +48,11 @@
 - The Player will continue to be presented levels until the Player loses
 - The Player will lose the game when they have no lives remaining
 - The Player will be required to press a key before a new level starts.
+- The Game will start at a main menu screen
+- The Main Menu will contain the following options:
+  - Start, which starts a run
+  - Instructions which details how to play
+  - Quit which stops the game running
 
 ## Secondary Mechanics
 
