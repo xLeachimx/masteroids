@@ -16,6 +16,7 @@ from splash import splash_screen
 from game import game
 from menu import menu
 from instr import instr
+from board import leaderboard
 
 
 def create_icon():
@@ -44,6 +45,10 @@ def main():
                 break
         elif menu_selection == 1:
             res = instr()
+            if res == -1:
+                break
+        elif menu_selection == 2:
+            res = leaderboard()
             if res == -1:
                 break
         menu_selection = menu()

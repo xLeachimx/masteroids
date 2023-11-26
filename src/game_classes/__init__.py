@@ -15,3 +15,4 @@ from .pellet import Pellet
 from .level import Level
 from .button import Button
 from .text_box import TextBox
+from .leaderboard import Leaderboard

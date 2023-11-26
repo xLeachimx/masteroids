@@ -80,3 +80,4 @@ Note: All secondary mechanics replace/modify the primary mechanics they improve,
 ---
 
 - Pellet fire rate changed to 5 per second.
+- Player bounces when they hit the side of the screen.

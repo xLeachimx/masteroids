@@ -60,7 +60,7 @@ class Level:
                 
             # Handle out-of-bounds
             if not self.player.in_bounds(self.dim):
-                self.player.clamp(self.dim)
+                self.player.bounce(self.dim)
             for asteroid in self.asteroids:
                 if not asteroid.in_bounds(self.dim):
                     asteroid.bounce(self.dim)
