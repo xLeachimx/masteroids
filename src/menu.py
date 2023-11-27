@@ -10,6 +10,7 @@
 #      -1: No selection/Quit
 #       0: Start
 #       1: Instructions
+#       2: Leaderboard
 
 import pygame as pg
 from time import perf_counter

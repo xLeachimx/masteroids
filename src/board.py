@@ -57,7 +57,7 @@ def leaderboard_add(score: int):
     running = True
     name = "AAA"
     char_index = 0
-    blink_freq = 1
+    blink_freq = 0.25
     blink_timer = blink_freq
     blink = False
     font = pg.font.SysFont("consolas", 28)
