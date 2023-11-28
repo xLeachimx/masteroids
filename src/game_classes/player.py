@@ -30,7 +30,6 @@ class Player(MovingGameObject):
         self.facing = 0
         self.score = 0
         self.cooldown = 0
-        AssetManager.get_instance().register_sound("shooting", "assets/sfx/laser_shot.wav")
     
     def throttle_up(self, delta: float):
         """Apply acceleration in the direction of facing."""

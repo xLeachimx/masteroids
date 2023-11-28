@@ -44,3 +44,15 @@ class AssetManager:
         if name in self.sound_dict:
             return False
         self.sound_dict[name] = pg.mixer.Sound(filename)
+        return True
+        
+    def get_music(self, name: str) -> str:
+        """Retrieves a filename for music based on a registered name."""
+        return self.music_dict[name] if name in self.music_dict else None
+    
+    def register_music(self, name: str, filename: str) -> bool:
+        """Registers a new music filename under a given name in the music library, returns false if this would overwrite."""
+        if name in self.sound_dict:
+            return False
+        self.music_dict[name] = filename
+        return True

@@ -9,7 +9,7 @@
 
 from time import perf_counter
 import pygame as pg
-from game_classes import Player, Vector2D, Level
+from game_classes import Player, Vector2D, Level, AssetManager
 from random import seed
 
 
@@ -28,7 +28,7 @@ def create_level_label(level: int, font: pg.font.Font, screen_dim: (int, int)):
 
 def game():
     # Start the music
-    pg.mixer.music.load("assets/music/space_dust.mp3")
+    pg.mixer.music.load(AssetManager.get_instance().get_music("background"))
     pg.mixer.music.set_volume(0.05)
     pg.mixer.music.play(-1)
     # Running constants
