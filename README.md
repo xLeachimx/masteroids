@@ -1,11 +1,14 @@
-# masteroids
-A simple asteroids game made with Pygame
+# Masteroids
+
+A simple asteroids-like game made with Pygame
 
 ### Credits
 
 ---
 
-Programming and design: Michael Huelsman
+- Based on the Game: ASTEROIDS by Lyle Rains and Ed Logg
+- Design, programming, and direction: Michael Huelsman
+
 
 ### Acknowledgements
 
