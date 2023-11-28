@@ -10,6 +10,7 @@
 from .game_object import MovingGameObject
 from .vector2d import Vector2D
 from .pellet import Pellet
+from .asset_manager import AssetManager
 from math import radians
 
 import pygame as pg
@@ -28,6 +29,7 @@ class Player(MovingGameObject):
         self.facing = 0
         self.score = 0
         self.cooldown = 0
+        AssetManager.get_instance().register_count("shooting", "assets/sfx/laser_shot.wav")
     
     def throttle_up(self, delta: float):
         """Apply acceleration in the direction of facing."""
@@ -71,6 +73,7 @@ class Player(MovingGameObject):
         pellet_anchor = Vector2D.ang_to_vec(self.facing).scale(Player.SHIP_RADIUS)
         pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
         pellet.activate()
+        AssetManager.get_instance().get_sound("shooting").play()
         self.cooldown = 0.2
         return pellet
     
