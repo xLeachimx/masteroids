@@ -17,7 +17,7 @@ from game import game
 from menu import menu
 from instr import instr
 from board import leaderboard, leaderboard_add
-from game_classes import Leaderboard
+from game_classes import Leaderboard, AssetManager
 
 
 def create_icon():
@@ -36,6 +36,10 @@ def main():
     screen = pg.display.set_mode(screen_dim)
     pg.display.set_caption("Masteroids", "Masteroids")
     pg.display.set_icon(create_icon())
+    
+    # Setup assets
+    AssetManager.get_instance().register_sound("shooting", "assets/sfx/laser_shot.wav")
+    AssetManager.get_instance().register_music("background", "assets/music/space_dust.mp3")
     
     splash_screen(9)
     menu_selection = menu()

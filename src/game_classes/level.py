@@ -39,7 +39,7 @@ class Level:
             self.asteroids[-1].clamp(self.dim)
             self.asteroids[-1].activate()
         
-        #Setup HUD elements
+        # Setup HUD elements
         self.font = pg.font.SysFont("consolas", 30)
         self.paused = True
         
@@ -148,7 +148,7 @@ class Level:
         
     def toggle_pause(self):
         self.paused = not self.paused
-
+    
     def handle_i_frames(self, delta: float):
         if self.i_frames <= 0:
            return
