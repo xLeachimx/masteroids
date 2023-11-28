@@ -33,11 +33,13 @@ class AssetManager:
     
     def __init__(self):
         self.sound_dict = {}
+        self.music_dict = {}
     
     def get_sound(self, name: str) -> pg.mixer.Sound:
+        """Retrieves a Pygame sound object based on a registered name."""
         return self.sound_dict[name] if name in self.sound_dict else None
     
-    def register_count(self, name: str, filename: str) -> bool:
+    def register_sound(self, name: str, filename: str) -> bool:
         """Registers a new sound file under a given name in the sound library, returns false if this would overwrite."""
         if name in self.sound_dict:
             return False

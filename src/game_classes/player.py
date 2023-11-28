@@ -22,6 +22,7 @@ class Player(MovingGameObject):
     SHIP_RADIUS = 10
     SHIP_ACCELERATION = 15
     SHIP_ANGULAR_SPEED = radians(180)
+    COOLDOWN_TIMER = 0.2
     
     def __init__(self, anchor: Vector2D):
         """Player constructor."""
@@ -29,7 +30,7 @@ class Player(MovingGameObject):
         self.facing = 0
         self.score = 0
         self.cooldown = 0
-        AssetManager.get_instance().register_count("shooting", "assets/sfx/laser_shot.wav")
+        AssetManager.get_instance().register_sound("shooting", "assets/sfx/laser_shot.wav")
     
     def throttle_up(self, delta: float):
         """Apply acceleration in the direction of facing."""
@@ -74,8 +75,11 @@ class Player(MovingGameObject):
         pellet = Pellet(pellet_anchor.add(self.get_anchor()), pellet_anchor.unit())
         pellet.activate()
         AssetManager.get_instance().get_sound("shooting").play()
-        self.cooldown = 0.2
+        self.cooldown = Player.COOLDOWN_TIMER
         return pellet
+    
+    def reset_cooldown(self):
+        self.cooldown = Player.COOLDOWN_TIMER
     
     # =======================
     #   Overridden methods

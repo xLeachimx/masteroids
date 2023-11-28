@@ -27,6 +27,10 @@ def create_level_label(level: int, font: pg.font.Font, screen_dim: (int, int)):
 
 
 def game():
+    # Start the music
+    pg.mixer.music.load("assets/music/space_dust.mp3")
+    pg.mixer.music.set_volume(0.05)
+    pg.mixer.music.play(-1)
     # Running constants
     screen = pg.display.get_surface()
     screen_dim = screen.get_size()
@@ -79,11 +83,14 @@ def game():
                             level.toggle_pause()
                             if game_state == "PLAY":
                                 game_state = "PAUSED"
+                                pg.mixer.music.pause()
                             else:
                                 game_state = "PLAY"
+                                pg.mixer.music.unpause()
                     if game_state == "NEW_LEVEL" and event.key == pg.K_SPACE:
                         game_state = "PLAY"
                         player.set_visible(True)
+                        player.reset_cooldown()
                         level.toggle_pause()
             if level.win():
                 difficulty += 1
@@ -94,4 +101,5 @@ def game():
             elif level.lose():
                 running = False
                 game_state = "LOST"
+    pg.mixer.music.stop()
     return player.get_score()
