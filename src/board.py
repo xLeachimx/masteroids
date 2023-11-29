@@ -8,7 +8,7 @@
 # Notes:
 
 import pygame as pg
-from game_classes import Button, Leaderboard
+from game_classes import Button, Leaderboard, AssetManager
 from time import perf_counter
 
 
@@ -60,8 +60,10 @@ def leaderboard_add(score: int):
     blink_freq = 0.25
     blink_timer = blink_freq
     blink = False
-    font = pg.font.SysFont("consolas", 28)
-    dir_font = pg.font.SysFont("consolas", 14)
+    font = AssetManager.get_instance().get_font("medium")
+    font.set_bold(False)
+    dir_font = AssetManager.get_instance().get_font("small")
+    dir_font.set_bold(False)
     dir_text = dir_font.render("Press Enter When Done", True, (255, 255, 255))
     board = Leaderboard("leader.board")
 

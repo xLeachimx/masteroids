@@ -32,7 +32,7 @@ def instr():
     
     Space Fire weapons, start level
     """
-    controls_text = TextBox(controls, (255, 255, 255), 60, 18)
+    controls_text = TextBox(controls, (255, 255, 255), 60, "small")
     instructions = """How to play:
     
     You are playing as a ship tasked with destroying all the asteroids in the area.
@@ -41,7 +41,7 @@ def instr():
     
     Keep playing until you run out of lives, you might even get onto the leaderboard.
     """
-    instr_text = TextBox(instructions, (255, 255, 255), 40, 18)
+    instr_text = TextBox(instructions, (255, 255, 255), 40, "small")
     
     controls_btn = Button("Controls", None, (255, 255, 255))
     controls_anchor = 0, 0

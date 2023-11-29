@@ -36,8 +36,9 @@ def game():
     screen_dim = screen.get_size()
     frame_delta = 1 / 24
     frame_timer = perf_counter()
-    announcement_font = pg.font.SysFont("consolas", 48, bold=True)
-    subtitle_font = pg.font.SysFont("consolas", 12, bold=True)
+    announcement_font = AssetManager.get_instance().get_font("large")
+    announcement_font.set_bold(True)
+    subtitle_font = AssetManager.get_instance().get_font("small")
     running = True
     
     # Setup GameObjects

@@ -9,7 +9,7 @@
 
 import pygame as pg
 from .vector2d import Vector2D
-
+from .asset_manager import AssetManager
 
 class Button:
     """A simply Pygame-based button class."""
@@ -18,7 +18,8 @@ class Button:
         """Button constructor"""
         if min_dim is None:
             min_dim = 0, 0
-        self.font = pg.font.SysFont("consolas", 24)
+        self.font = AssetManager.get_instance().get_font("medium")
+        self.font.set_bold(False)
         self.padding = 10
         self.anchor = None
         self.label = label

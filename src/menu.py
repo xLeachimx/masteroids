@@ -14,7 +14,7 @@
 
 import pygame as pg
 from time import perf_counter
-from game_classes import Button, Vector2D
+from game_classes import Button, Vector2D, AssetManager
 
 
 def menu():
@@ -22,7 +22,8 @@ def menu():
     screen = pg.display.get_surface()
     screen_dim = screen.get_size()
     running = True
-    announcement_font = pg.font.SysFont("consolas", 48, bold=True)
+    announcement_font = AssetManager.get_instance().get_font("large")
+    announcement_font.set_bold(True)
     masteroid_label = announcement_font.render("MASTEROIDS", True, (200, 0, 0))
     masteroid_anchor = (screen_dim[0] - masteroid_label.get_width())//2, screen_dim[1]//4 - masteroid_label.get_height()//2
     
