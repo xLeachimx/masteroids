@@ -10,6 +10,7 @@
 from time import perf_counter
 
 import pygame as pg
+from game_classes import AssetManager
 
 
 # Precond:
@@ -24,8 +25,10 @@ def splash_screen(length: float):
     masteroids_length = length/3
     screen = pg.display.get_surface()
     running = True
-    announcement_font = pg.font.SysFont("consolas", 48, bold=True)
-    subtitle_font = pg.font.SysFont("consolas", 18, bold=True)
+    announcement_font = AssetManager.get_instance().get_font("large")
+    announcement_font.set_bold(True)
+    subtitle_font = AssetManager.get_instance().get_font("small")
+
     
     # SAGS labels
     from_label = subtitle_font.render("A game from:", True, (255, 255, 255))

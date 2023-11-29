@@ -34,6 +34,7 @@ class AssetManager:
     def __init__(self):
         self.sound_dict = {}
         self.music_dict = {}
+        self.font_dict = {}
     
     def get_sound(self, name: str) -> pg.mixer.Sound:
         """Retrieves a Pygame sound object based on a registered name."""
@@ -52,7 +53,18 @@ class AssetManager:
     
     def register_music(self, name: str, filename: str) -> bool:
         """Registers a new music filename under a given name in the music library, returns false if this would overwrite."""
-        if name in self.sound_dict:
+        if name in self.music_dict:
             return False
         self.music_dict[name] = filename
+        return True
+
+    def get_font(self, name: str) -> pg.font.Font:
+        """Retrieves a Font object based on a registered name."""
+        return self.font_dict[name] if name in self.font_dict else None
+
+    def register_font(self, name: str, font: pg.font.Font) -> bool:
+        """Registers a new Font under a given name in the music library, returns false if this would overwrite."""
+        if name in self.font_dict:
+            return False
+        self.font_dict[name] = font
         return True

@@ -8,11 +8,13 @@
 # Notes:
 
 import pygame as pg
+from .asset_manager import AssetManager
 
 
 class TextBox:
-    def __init__(self, data: str, color: (int, int, int), line_length: int, font_size: int):
-        font = pg.font.SysFont("consolas", font_size)
+    def __init__(self, data: str, color: (int, int, int), line_length: int, font_name: str):
+        font = AssetManager.get_instance().get_font(font_name)
+        font.set_bold(False)
         provided_lines = data.split("\n")
         wrapped_text = []
         temp = ""

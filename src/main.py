@@ -40,7 +40,10 @@ def main():
     # Setup assets
     AssetManager.get_instance().register_sound("shooting", "assets/sfx/laser_shot.wav")
     AssetManager.get_instance().register_music("background", "assets/music/space_dust.mp3")
-    
+    AssetManager.get_instance().register_font("large", pg.font.Font("assets/fonts/Consolas.ttf", 48))
+    AssetManager.get_instance().register_font("medium", pg.font.Font("assets/fonts/Consolas.ttf", 24))
+    AssetManager.get_instance().register_font("small", pg.font.Font("assets/fonts/Consolas.ttf", 18))
+
     splash_screen(9)
     menu_selection = menu()
     while menu_selection != -1:
