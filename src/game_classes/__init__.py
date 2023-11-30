@@ -17,3 +17,4 @@ from .button import Button
 from .text_box import TextBox
 from .leaderboard import Leaderboard
 from .asset_manager import AssetManager
+from .game_config import GameConfig

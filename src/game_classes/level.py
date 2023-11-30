@@ -11,6 +11,7 @@ from .player import Player
 from .asteroid import Asteroid
 from .pellet import Pellet
 from .vector2d import Vector2D
+from .game_config import GameConfig
 
 from random import randint
 import pygame as pg
@@ -104,22 +105,45 @@ class Level:
             
             # Process Key Input
             # Rotational input
-            if pg.key.get_pressed()[pg.K_a]:
-                self.player.rotate_ccw(delta)
-            elif pg.key.get_pressed()[pg.K_d]:
-                self.player.rotate_cw(delta)
-            # Throttle input
-            if pg.key.get_pressed()[pg.K_f]:
-                self.player.halt_ship()
-            elif pg.key.get_pressed()[pg.K_w]:
-                self.player.throttle_up(delta)
-            elif pg.key.get_pressed()[pg.K_s]:
-                self.player.throttle_down(delta)
-            # Trigger input
-            if pg.key.get_pressed()[pg.K_SPACE]:
-                pellet = self.player.fire()
-                if pellet is not None:
-                    self.pellets.append(pellet)
+            match GameConfig.get_setting("controller"):
+                case "KEYBOARD":
+                    if pg.key.get_pressed()[pg.K_a]:
+                        self.player.rotate_ccw(delta)
+                    elif pg.key.get_pressed()[pg.K_d]:
+                        self.player.rotate_cw(delta)
+                    # Throttle input
+                    if pg.key.get_pressed()[pg.K_f]:
+                        self.player.halt_ship()
+                    elif pg.key.get_pressed()[pg.K_w]:
+                        self.player.throttle_up(delta)
+                    elif pg.key.get_pressed()[pg.K_s]:
+                        self.player.throttle_down(delta)
+                    # Trigger input
+                    if pg.key.get_pressed()[pg.K_SPACE]:
+                        pellet = self.player.fire()
+                        if pellet is not None:
+                            self.pellets.append(pellet)
+                case "GAMEPAD":
+                    joystick = GameConfig.get_setting("gamepad")
+                    x_axis = joystick.get_axis(GameConfig.get_setting("X-axis"))
+                    y_axis = joystick.get_axis(GameConfig.get_setting("Y-axis"))
+                    x_axis, y_axis = round(x_axis), round(y_axis)
+                    if x_axis == -1:
+                        self.player.rotate_ccw(delta)
+                    elif x_axis == 1:
+                        self.player.rotate_cw(delta)
+                    # Throttle input
+                    if joystick.get_button(GameConfig.get_setting("L")):
+                        self.player.halt_ship()
+                    elif y_axis == -1:
+                        self.player.throttle_up(delta)
+                    elif y_axis == 1:
+                        self.player.throttle_down(delta)
+                    # Trigger input
+                    if joystick.get_button(GameConfig.get_setting("A")):
+                        pellet = self.player.fire()
+                        if pellet is not None:
+                            self.pellets.append(pellet)
         
         # Draw
         self.player.draw(screen)

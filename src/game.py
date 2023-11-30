@@ -9,7 +9,7 @@
 
 from time import perf_counter
 import pygame as pg
-from game_classes import Player, Vector2D, Level, AssetManager
+from game_classes import Player, Vector2D, Level, AssetManager, GameConfig
 from random import seed
 
 
@@ -78,21 +78,39 @@ def game():
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        if game_state in ["PLAY", "PAUSED"]:
-                            level.toggle_pause()
-                            if game_state == "PLAY":
-                                game_state = "PAUSED"
-                                pg.mixer.music.pause()
-                            else:
+                match GameConfig.get_setting("controller"):
+                    case "KEYBOARD":
+                        if event.type == pg.KEYDOWN:
+                            if event.key == pg.K_ESCAPE:
+                                if game_state in ["PLAY", "PAUSED"]:
+                                    level.toggle_pause()
+                                    if game_state == "PLAY":
+                                        game_state = "PAUSED"
+                                        pg.mixer.music.pause()
+                                    else:
+                                        game_state = "PLAY"
+                                        pg.mixer.music.unpause()
+                            if game_state == "NEW_LEVEL" and event.key == pg.K_SPACE:
                                 game_state = "PLAY"
-                                pg.mixer.music.unpause()
-                    if game_state == "NEW_LEVEL" and event.key == pg.K_SPACE:
-                        game_state = "PLAY"
-                        player.set_visible(True)
-                        player.reset_cooldown()
-                        level.toggle_pause()
+                                player.set_visible(True)
+                                player.reset_cooldown()
+                                level.toggle_pause()
+                    case "GAMEPAD":
+                        if event.type == pg.JOYBUTTONDOWN:
+                            if event.button == GameConfig.get_setting("START"):
+                                if game_state in ["PLAY", "PAUSED"]:
+                                    level.toggle_pause()
+                                    if game_state == "PLAY":
+                                        game_state = "PAUSED"
+                                        pg.mixer.music.pause()
+                                    else:
+                                        game_state = "PLAY"
+                                        pg.mixer.music.unpause()
+                            if game_state == "NEW_LEVEL" and event.button == GameConfig.get_setting("A"):
+                                game_state = "PLAY"
+                                player.set_visible(True)
+                                player.reset_cooldown()
+                                level.toggle_pause()
             if level.win():
                 difficulty += 1
                 level_count += 1
