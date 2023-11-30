@@ -33,19 +33,26 @@ def leaderboard():
             leader_render = board.render()
             leader_anchor = (screen_dim[0] - leader_render.get_width())//2, (screen_dim[1] - leader_render.get_height())//2
             screen.blit(leader_render, leader_anchor)
-            back_btn.place(screen, back_anchor)
+            if GameConfig.get_setting("controller") == "KEYBOARD":
+                back_btn.place(screen, back_anchor)
             pg.display.flip()
             # Process Events
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                elif event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        running = False
-                elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                    if back_btn.check_click(event.pos):
-                        running = False
+                match GameConfig.get_setting("controller"):
+                    case "KEYBOARD":
+                        if event.type == pg.KEYDOWN:
+                            if event.key == pg.K_ESCAPE:
+                                running = False
+                        elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                            if back_btn.check_click(event.pos):
+                                running = False
+                    case "GAMEPAD":
+                        if event.type == pg.JOYBUTTONDOWN:
+                            if event.button == GameConfig.get_setting("B"):
+                                running = False
     board.write_out()
     return 0
 
@@ -64,7 +71,12 @@ def leaderboard_add(score: int):
     font.set_bold(False)
     dir_font = AssetManager.get_instance().get_font("small")
     dir_font.set_bold(False)
-    dir_text = dir_font.render("Press Enter When Done", True, (255, 255, 255))
+    dir_text = None
+    match GameConfig.get_setting("controller"):
+        case "KEYBOARD":
+            dir_text = dir_font.render("Press Enter When Done", True, (255, 255, 255))
+        case "GAMEPAD":
+            dir_text = dir_font.render("Press Start When Done", True, (255, 255, 255))
     board = Leaderboard("leader.board")
 
     # Update accounting

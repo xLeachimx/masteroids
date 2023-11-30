@@ -54,7 +54,12 @@ def game():
     pause_label = announcement_font.render("==PAUSED==", True, (255, 255, 255))
     pause_anchor = (screen_dim[0] - pause_label.get_width()) // 2, (screen_dim[1] - pause_label.get_height()) // 2
     level_label, level_anchor = create_level_label(level_count, announcement_font, screen_dim)
-    level_dir = subtitle_font.render("Press SPACE to proceed", True, (255, 255, 255))
+    level_dir = None
+    match GameConfig.get_setting("controller"):
+        case "KEYBOARD":
+            level_dir = subtitle_font.render("Press SPACE to proceed", True, (255, 255, 255))
+        case "GAMEPAD":
+            level_dir = subtitle_font.render("Press A to proceed", True, (255, 255, 255))
     level_dir_anchor = (screen_dim[0] - level_dir.get_width()) // 2, (
               screen_dim[1] - level_dir.get_height()) // 2 + level_label.get_height()
     

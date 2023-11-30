@@ -8,7 +8,7 @@
 # Notes:
 
 from time import perf_counter
-from game_classes import TextBox, Button, Vector2D
+from game_classes import TextBox, Button, GameConfig
 import pygame as pg
 
 def instr():
@@ -16,22 +16,42 @@ def instr():
     screen = pg.display.get_surface()
     screen_dim = screen.get_size()
     running = True
-    controls = """Controls
-    
-    W     Accelerate the ship forward.
-    
-    A     Rotate the ship counterclockwise.
-    
-    S     Accelerate the ship backward.
-    
-    D     Rotate the ship clockwise.
-    
-    F     Halt all ship velocity.
-    
-    Esc   Pause/unpause the game, exit menus.
-    
-    Space Fire weapons, start level
-    """
+    controls = ""
+    match GameConfig.get_setting("controller"):
+        case "KEYBOARD":
+            controls = """Controls
+            
+            W     Accelerate the ship forward.
+            
+            A     Rotate the ship counterclockwise.
+            
+            S     Accelerate the ship backward.
+            
+            D     Rotate the ship clockwise.
+            
+            F     Halt all ship velocity.
+            
+            Esc   Pause/unpause the game, exit menus.
+            
+            Space Fire weapons, start level
+            """
+        case "GAMEPAD":
+            controls = """Controls
+            
+            UP        Accelerate the ship forward.
+            
+            LEFT      Rotate the ship counterclockwise.
+            
+            DOWN      Accelerate the ship backward.
+            
+            RIGHT     Rotate the ship clockwise.
+            
+            L         Halt all ship velocity.
+            
+            START     Pause/unpause the game, exit menus.
+            
+            A         Fire weapons, start level
+            """
     controls_text = TextBox(controls, (255, 255, 255), 60, "small")
     instructions = """How to play:
     
@@ -62,7 +82,9 @@ def instr():
             screen.fill((0, 0, 0))
             controls_btn.place(screen, controls_anchor)
             instr_btn.place(screen, instr_anchor)
-            back_btn.place(screen, back_anchor)
+            match GameConfig.get_setting("controller"):
+                    case "KEYBOARD":
+                        back_btn.place(screen, back_anchor)
             if display == "CONTR":
                 controls_text.place_center(screen)
             elif display == "INSTR":
@@ -73,14 +95,24 @@ def instr():
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                elif event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        running = False
-                elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                    if controls_btn.check_click(event.pos):
-                        display = "CONTR"
-                    elif instr_btn.check_click(event.pos):
-                        display = "INSTR"
-                    elif back_btn.check_click(event.pos):
-                        running = False
+                match GameConfig.get_setting("controller"):
+                    case "KEYBOARD":
+                        if event.type == pg.KEYDOWN:
+                            if event.key == pg.K_ESCAPE:
+                                running = False
+                        elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                            if controls_btn.check_click(event.pos):
+                                display = "CONTR"
+                            elif instr_btn.check_click(event.pos):
+                                display = "INSTR"
+                            elif back_btn.check_click(event.pos):
+                                running = False
+                    case "GAMEPAD":
+                        if event.type == pg.JOYBUTTONDOWN:
+                            if event.button == GameConfig.get_setting("L"):
+                                display = "CONTR"
+                            elif event.button == GameConfig.get_setting("R"):
+                                display = "INSTR"
+                            elif event.button == GameConfig.get_setting("B"):
+                                running = False
     return 0
