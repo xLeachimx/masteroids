@@ -20,7 +20,7 @@ class TextBox:
         temp = ""
         for line in provided_lines:
             temp = ""
-            words = line.split(" ")
+            words = line.lstrip().split(" ")
             for word in words:
                 if (len(word) + len(temp) + 1) < line_length:
                     temp = temp + " " + word

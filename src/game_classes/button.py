@@ -49,6 +49,10 @@ class Button:
         """Retrieves the dimensions of the button."""
         return self.surf.get_size()
     
+    def get_anchor(self):
+        """Retrieves the button's anchor"""
+        return self.anchor
+    
     def check_click(self, click_pos: (int, int)) -> bool:
         """Checks to see if a particular click is inside the button."""
         click_pos = click_pos[0] - self.anchor[0], click_pos[1] - self.anchor[1]

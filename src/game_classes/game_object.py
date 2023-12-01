@@ -172,16 +172,16 @@ class MovingGameObject(GameObject):
     #
     # Postcond:
     #   Clamps the positioning of the collider to the edge of the screen.
-    def clamp(self, screen_dim: (int, int)):
+    def clamp(self, screen_dim: (int, int), vel_zero=True):
         x_max = screen_dim[0] - self.collider.radius
         x_min = self.collider.radius
         y_max = screen_dim[1] - self.collider.radius
         y_min = self.collider.radius
         anchor_x = min(max(x_min, self.collider.get_anchor().x), x_max)
         anchor_y = min(max(y_min, self.collider.get_anchor().y), y_max)
-        if anchor_x != self.collider.get_anchor().x:
+        if vel_zero and anchor_x != self.collider.get_anchor().x:
             self.velocity.x = 0
-        if anchor_y != self.collider.get_anchor().y:
+        if vel_zero and anchor_y != self.collider.get_anchor().y:
             self.velocity.y = 0
         self.collider.anchor = Vector2D(anchor_x, anchor_y)
         
@@ -194,6 +194,8 @@ class MovingGameObject(GameObject):
         min_pt = self.collider.get_anchor().sub(Vector2D(self.collider.radius, self.collider.radius))
         max_pt = self.collider.get_anchor().add(Vector2D(self.collider.radius, self.collider.radius))
         if min_pt.x < 0 or max_pt.x > screen_dim[0]:
+            self.clamp(screen_dim, False)
             self.velocity.x = -self.velocity.x
         if min_pt.y < 0 or max_pt.y > screen_dim[1]:
+            self.clamp(screen_dim, False)
             self.velocity.y = -self.velocity.y
