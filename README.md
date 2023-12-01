@@ -2,6 +2,12 @@
 
 A simple asteroids-like game made with Pygame
 
+### Notes:
+
+---
+
+- Supports VILROS VIL_GAMEPAD_V3.0
+
 ### Credits
 
 ---
