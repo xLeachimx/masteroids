@@ -20,9 +20,10 @@ class Player(MovingGameObject):
     """A simple class for dealing with the player's ship."""
     # Player constants
     SHIP_RADIUS = 10
-    SHIP_ACCELERATION = 15
+    SHIP_ACCELERATION = 33
+    SHIP_MAX_VELOCITY = 90
     SHIP_ANGULAR_SPEED = radians(180)
-    COOLDOWN_TIMER = 0.2
+    COOLDOWN_TIMER = 0.4
     
     def __init__(self, anchor: Vector2D):
         """Player constructor."""
@@ -35,11 +36,15 @@ class Player(MovingGameObject):
         """Apply acceleration in the direction of facing."""
         facing_vector = Vector2D.ang_to_vec(self.facing).scale(delta).scale(Player.SHIP_ACCELERATION)
         self.velocity = self.velocity.add(facing_vector)
+        if self.velocity.magnitude() >= Player.SHIP_MAX_VELOCITY:
+            self.velocity = self.velocity.unit().scale(Player.SHIP_MAX_VELOCITY)
     
     def throttle_down(self, delta: float):
         """Apply acceleration in the inverse direction of facing."""
         facing_vector = Vector2D.ang_to_vec(self.facing).scale(delta).scale(Player.SHIP_ACCELERATION)
         self.velocity = self.velocity.sub(facing_vector)
+        if self.velocity.magnitude() >= Player.SHIP_MAX_VELOCITY:
+            self.velocity = self.velocity.unit().scale(Player.SHIP_MAX_VELOCITY)
     
     def halt_ship(self):
         """Set the ship's velocity to zero."""

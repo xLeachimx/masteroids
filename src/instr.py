@@ -46,7 +46,7 @@ def instr():
             
             RIGHT     Rotate the ship clockwise.
             
-            L         Halt all ship velocity.
+            B         Halt all ship velocity.
             
             START     Pause/unpause the game, exit menus.
             

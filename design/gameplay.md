@@ -67,11 +67,12 @@ Note: All secondary mechanics replace/modify the primary mechanics they improve,
 - Asteroids slowly rotate as they move through space
 - The Player and Asteroids will be sized relative to the smallest screen dimension
 - The Pellet will have a lifespan of 3 seconds
-- The Game will play a sound when a pellet is fired
 
 ### Completed:
 - The Player will be limited to firing pellets at a rate of 2 per second
 - The Game will start with a splash screen for Pygame and SAC-GS
+- The Game will play a sound when a pellet is fired
+- The Game will be able to be played with a gamepad
 
 
 ## Gameplay Balance Modifications

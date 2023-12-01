@@ -133,7 +133,7 @@ class Level:
                     elif x_axis == 1:
                         self.player.rotate_cw(delta)
                     # Throttle input
-                    if joystick.get_button(GameConfig.get_setting("L")):
+                    if joystick.get_button(GameConfig.get_setting("B")):
                         self.player.halt_ship()
                     elif y_axis == -1:
                         self.player.throttle_up(delta)
