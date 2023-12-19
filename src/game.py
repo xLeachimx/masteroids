@@ -77,45 +77,45 @@ def game():
                 player.set_visible(False)
                 screen.blit(level_label, level_anchor)
                 screen.blit(level_dir, level_dir_anchor)
+            pg.draw.rect(screen, (255, 255, 255), screen.get_rect(), 3)
             pg.display.flip()
             # Process Events
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                match GameConfig.get_setting("controller"):
-                    case "KEYBOARD":
-                        if event.type == pg.KEYDOWN:
-                            if event.key == pg.K_ESCAPE:
-                                if game_state in ["PLAY", "PAUSED"]:
-                                    level.toggle_pause()
-                                    if game_state == "PLAY":
-                                        game_state = "PAUSED"
-                                        pg.mixer.music.pause()
-                                    else:
-                                        game_state = "PLAY"
-                                        pg.mixer.music.unpause()
-                            if game_state == "NEW_LEVEL" and event.key == pg.K_SPACE:
-                                game_state = "PLAY"
-                                player.set_visible(True)
-                                player.reset_cooldown()
+                if GameConfig.get_setting("controller") == "KEYBOARD":
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_ESCAPE:
+                            if game_state in ["PLAY", "PAUSED"]:
                                 level.toggle_pause()
-                    case "GAMEPAD":
-                        if event.type == pg.JOYBUTTONDOWN:
-                            if event.button == GameConfig.get_setting("START"):
-                                if game_state in ["PLAY", "PAUSED"]:
-                                    level.toggle_pause()
-                                    if game_state == "PLAY":
-                                        game_state = "PAUSED"
-                                        pg.mixer.music.pause()
-                                    else:
-                                        game_state = "PLAY"
-                                        pg.mixer.music.unpause()
-                            if game_state == "NEW_LEVEL" and event.button == GameConfig.get_setting("A"):
-                                game_state = "PLAY"
-                                player.set_visible(True)
-                                player.reset_cooldown()
+                                if game_state == "PLAY":
+                                    game_state = "PAUSED"
+                                    pg.mixer.music.pause()
+                                else:
+                                    game_state = "PLAY"
+                                    pg.mixer.music.unpause()
+                        if game_state == "NEW_LEVEL" and event.key == pg.K_SPACE:
+                            game_state = "PLAY"
+                            player.set_visible(True)
+                            player.reset_cooldown()
+                            level.toggle_pause()
+                elif GameConfig.get_setting("controller") == "GAMEPAD":
+                    if event.type == pg.JOYBUTTONDOWN:
+                        if event.button == GameConfig.get_setting("START"):
+                            if game_state in ["PLAY", "PAUSED"]:
                                 level.toggle_pause()
+                                if game_state == "PLAY":
+                                    game_state = "PAUSED"
+                                    pg.mixer.music.pause()
+                                else:
+                                    game_state = "PLAY"
+                                    pg.mixer.music.unpause()
+                        if game_state == "NEW_LEVEL" and event.button == GameConfig.get_setting("A"):
+                            game_state = "PLAY"
+                            player.set_visible(True)
+                            player.reset_cooldown()
+                            level.toggle_pause()
             if level.win():
                 difficulty += 1
                 level_count += 1

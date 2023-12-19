@@ -33,7 +33,7 @@ def main():
     # Setup pygame
     pg.init()
     screen_dim = (500, 500)
-    screen = pg.display.set_mode(screen_dim)
+    screen = pg.display.set_mode(screen_dim, flags=pg.SCALED | pg.FULLSCREEN)
     pg.display.set_caption("Masteroids", "Masteroids")
     pg.display.set_icon(create_icon())
     

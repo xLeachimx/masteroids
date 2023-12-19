@@ -95,24 +95,23 @@ def instr():
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                match GameConfig.get_setting("controller"):
-                    case "KEYBOARD":
-                        if event.type == pg.KEYDOWN:
-                            if event.key == pg.K_ESCAPE:
-                                running = False
-                        elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                            if controls_btn.check_click(event.pos):
-                                display = "CONTR"
-                            elif instr_btn.check_click(event.pos):
-                                display = "INSTR"
-                            elif back_btn.check_click(event.pos):
-                                running = False
-                    case "GAMEPAD":
-                        if event.type == pg.JOYBUTTONDOWN:
-                            if event.button == GameConfig.get_setting("L"):
-                                display = "CONTR"
-                            elif event.button == GameConfig.get_setting("R"):
-                                display = "INSTR"
-                            elif event.button == GameConfig.get_setting("B"):
-                                running = False
+                if GameConfig.get_setting("controller") == "KEYBOARD":
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_ESCAPE:
+                            running = False
+                    elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                        if controls_btn.check_click(event.pos):
+                            display = "CONTR"
+                        elif instr_btn.check_click(event.pos):
+                            display = "INSTR"
+                        elif back_btn.check_click(event.pos):
+                            running = False
+                elif GameConfig.get_setting("controller") == "GAMEPAD":
+                    if event.type == pg.JOYBUTTONDOWN:
+                        if event.button == GameConfig.get_setting("L"):
+                            display = "CONTR"
+                        elif event.button == GameConfig.get_setting("R"):
+                            display = "INSTR"
+                        elif event.button == GameConfig.get_setting("B"):
+                            running = False
     return 0

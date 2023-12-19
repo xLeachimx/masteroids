@@ -75,34 +75,33 @@ def menu():
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
-                match GameConfig.get_setting("controller"):
-                    case "KEYBOARD":
-                        if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                            running = False
-                            if start_btn.check_click(event.pos):
-                                selection = 0
-                            elif instr_btn.check_click(event.pos):
-                                selection = 1
-                            elif leader_btn.check_click(event.pos):
-                                selection = 2
-                            elif quit_btn.check_click(event.pos):
-                                selection = -1
-                            else:
-                                running = True
-                    case "GAMEPAD":
-                        if event.type == pg.JOYBUTTONDOWN and event.button == GameConfig.get_setting("A"):
-                            running = False
-                            if selector == len(buttons)-1:
-                                selection = -1
-                            else:
-                                selection = selector
-                        elif event.type == pg.JOYAXISMOTION:
-                            if event.axis == GameConfig.get_setting("Y-axis"):
-                                if round(event.value) == -1:
-                                    selector -= 1
-                                elif round(event.value) == 1:
-                                    selector += 1
-                                selector = selector % len(buttons)
+                if GameConfig.get_setting("controller") == "KEYBOARD":
+                    if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                        running = False
+                        if start_btn.check_click(event.pos):
+                            selection = 0
+                        elif instr_btn.check_click(event.pos):
+                            selection = 1
+                        elif leader_btn.check_click(event.pos):
+                            selection = 2
+                        elif quit_btn.check_click(event.pos):
+                            selection = -1
+                        else:
+                            running = True
+                elif GameConfig.get_setting("controller") == "GAMEPAD":
+                    if event.type == pg.JOYBUTTONDOWN and event.button == GameConfig.get_setting("A"):
+                        running = False
+                        if selector == len(buttons)-1:
+                            selection = -1
+                        else:
+                            selection = selector
+                    elif event.type == pg.JOYAXISMOTION:
+                        if event.axis == GameConfig.get_setting("Y-axis"):
+                            if round(event.value) == -1:
+                                selector -= 1
+                            elif round(event.value) == 1:
+                                selector += 1
+                            selector = selector % len(buttons)
                                 
     return selection
                 
