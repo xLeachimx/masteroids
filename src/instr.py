@@ -17,41 +17,40 @@ def instr():
     screen_dim = screen.get_size()
     running = True
     controls = ""
-    match GameConfig.get_setting("controller"):
-        case "KEYBOARD":
-            controls = """Controls
-            
-            W     Accelerate the ship forward.
-            
-            A     Rotate the ship counterclockwise.
-            
-            S     Accelerate the ship backward.
-            
-            D     Rotate the ship clockwise.
-            
-            F     Halt all ship velocity.
-            
-            Esc   Pause/unpause the game, exit menus.
-            
-            Space Fire weapons, start level
-            """
-        case "GAMEPAD":
-            controls = """Controls
-            
-            UP        Accelerate the ship forward.
-            
-            LEFT      Rotate the ship counterclockwise.
-            
-            DOWN      Accelerate the ship backward.
-            
-            RIGHT     Rotate the ship clockwise.
-            
-            B         Halt all ship velocity.
-            
-            START     Pause/unpause the game, exit menus.
-            
-            A         Fire weapons, start level
-            """
+    if GameConfig.get_setting("controller") == "KEYBOARD":
+        controls = """Controls
+        
+        W     Accelerate the ship forward.
+        
+        A     Rotate the ship counterclockwise.
+        
+        S     Accelerate the ship backward.
+        
+        D     Rotate the ship clockwise.
+        
+        F     Halt all ship velocity.
+        
+        Esc   Pause/unpause the game, exit menus.
+        
+        Space Fire weapons, start level
+        """
+    elif GameConfig.get_setting("controller") == "GAMEPAD":
+        controls = """Controls
+        
+        UP        Accelerate the ship forward.
+        
+        LEFT      Rotate the ship counterclockwise.
+        
+        DOWN      Accelerate the ship backward.
+        
+        RIGHT     Rotate the ship clockwise.
+        
+        B         Halt all ship velocity.
+        
+        START     Pause/unpause the game, exit menus.
+        
+        A         Fire weapons, start level
+        """
     controls_text = TextBox(controls, (255, 255, 255), 60, "small")
     instructions = """How to play:
     
@@ -82,9 +81,8 @@ def instr():
             screen.fill((0, 0, 0))
             controls_btn.place(screen, controls_anchor)
             instr_btn.place(screen, instr_anchor)
-            match GameConfig.get_setting("controller"):
-                    case "KEYBOARD":
-                        back_btn.place(screen, back_anchor)
+            if GameConfig.get_setting("controller") == "KEYBOARD":
+                back_btn.place(screen, back_anchor)
             if display == "CONTR":
                 controls_text.place_center(screen)
             elif display == "INSTR":

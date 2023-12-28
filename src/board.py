@@ -71,11 +71,10 @@ def leaderboard_add(score: int):
     dir_font = AssetManager.get_instance().get_font("small")
     dir_font.set_bold(False)
     dir_text = None
-    match GameConfig.get_setting("controller"):
-        case "KEYBOARD":
-            dir_text = dir_font.render("Press Enter When Done", True, (255, 255, 255))
-        case "GAMEPAD":
-            dir_text = dir_font.render("Press Start When Done", True, (255, 255, 255))
+    if GameConfig.get_setting("controller") == "KEYBOARD":
+        dir_text = dir_font.render("Press Enter When Done", True, (255, 255, 255))
+    elif GameConfig.get_setting("controller") == "GAMEPAD":
+        dir_text = dir_font.render("Press Start When Done", True, (255, 255, 255))
     board = Leaderboard("leader.board")
 
     # Update accounting
@@ -107,58 +106,56 @@ def leaderboard_add(score: int):
                 if event.type == pg.QUIT:
                     running = False
                     return -1
-                match GameConfig.get_setting("controller"):
-                    case "KEYBOARD":
-                        if event.type == pg.KEYDOWN:
-                            if event.key == pg.K_RETURN:
-                                board.add_leader(name, score)
-                                running = False
-                            elif event.key in [pg.K_LEFT, pg.K_a]:
-                                char_index -= 1
-                                char_index = char_index % 3
-                            elif event.key in [pg.K_RIGHT, pg.K_d]:
-                                char_index += 1
-                                char_index = char_index % 3
-                            elif event.key in [pg.K_UP, pg.K_w]:
+                if GameConfig.get_setting("controller") == "KEYBOARD":
+                    if event.type == pg.KEYDOWN:
+                        if event.key == pg.K_RETURN:
+                            board.add_leader(name, score)
+                            running = False
+                        elif event.key in [pg.K_LEFT, pg.K_a]:
+                            char_index -= 1
+                            char_index = char_index % 3
+                        elif event.key in [pg.K_RIGHT, pg.K_d]:
+                            char_index += 1
+                            char_index = char_index % 3
+                        elif event.key in [pg.K_UP, pg.K_w]:
+                            next_char = chr(ord(name[char_index])+1)
+                            if ord(next_char) > ord("Z"):
+                                next_char = "A"
+                            name = name[:char_index] + next_char + name[char_index+1:]
+                        elif event.key in [pg.K_DOWN, pg.K_s]:
+                            next_char = chr(ord(name[char_index])-1)
+                            if ord(next_char) < ord("A"):
+                                next_char = "Z"
+                            name = name[:char_index] + next_char + name[char_index+1:]
+                elif GameConfig.get_setting("controller") == "GAMEPAD":
+                    if event.type == pg.JOYBUTTONDOWN:
+                        if event.button == GameConfig.get_setting("START"):
+                            board.add_leader(name, score)
+                            running = False
+                        elif event.button == GameConfig.get_setting("L"):
+                            char_index -= 1
+                            char_index = char_index % 3
+                        elif event.button == GameConfig.get_setting("R"):
+                            char_index += 1
+                            char_index = char_index % 3
+                    if event.type == pg.JOYAXISMOTION:
+                        if event.axis == GameConfig.get_setting("Y-axis"):
+                            if round(event.value) == -1:
                                 next_char = chr(ord(name[char_index])+1)
                                 if ord(next_char) > ord("Z"):
                                     next_char = "A"
                                 name = name[:char_index] + next_char + name[char_index+1:]
-                            elif event.key in [pg.K_DOWN, pg.K_s]:
+                            elif round(event.value) == 1:
                                 next_char = chr(ord(name[char_index])-1)
                                 if ord(next_char) < ord("A"):
                                     next_char = "Z"
                                 name = name[:char_index] + next_char + name[char_index+1:]
-                    case "GAMEPAD":
-                        if event.type == pg.JOYBUTTONDOWN:
-                            if event.button == GameConfig.get_setting("START"):
-                                board.add_leader(name, score)
-                                running = False
-                            elif event.button == GameConfig.get_setting("L"):
+                        if event.axis == GameConfig.get_setting("X-axis"):
+                            if round(event.value) == -1:
                                 char_index -= 1
                                 char_index = char_index % 3
-                            elif event.button == GameConfig.get_setting("R"):
+                            elif round(event.value) == 1:
                                 char_index += 1
                                 char_index = char_index % 3
-                        if event.type == pg.JOYAXISMOTION:
-                            if event.axis == GameConfig.get_setting("Y-axis"):
-                                if round(event.value) == -1:
-                                    next_char = chr(ord(name[char_index])+1)
-                                    if ord(next_char) > ord("Z"):
-                                        next_char = "A"
-                                    name = name[:char_index] + next_char + name[char_index+1:]
-                                elif round(event.value) == 1:
-                                    next_char = chr(ord(name[char_index])-1)
-                                    if ord(next_char) < ord("A"):
-                                        next_char = "Z"
-                                    name = name[:char_index] + next_char + name[char_index+1:]
-                            if event.axis == GameConfig.get_setting("X-axis"):
-                                if round(event.value) == -1:
-                                    char_index -= 1
-                                    char_index = char_index % 3
-                                elif round(event.value) == 1:
-                                    char_index += 1
-                                    char_index = char_index % 3
-                        
     board.write_out()
     return 0
